@@ -1,35 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import ChildCom1 from "./components/ChildCom1";
+import ChildCom2 from "./components/ChildCom2";
+// import MouseMove from "./components/MouseMove";
+
+import withMouseMove from "./HOC/withMouseMove"
+
+const NewChildCom1 = withMouseMove(ChildCom1);
+const NewChildCom2 = withMouseMove(ChildCom2);
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        width: "850px"
+      }}
+    >
+      {/* 这边就不再是直接使用 ChildCom1、ChildCom2 */}
+      {/* <ChildCom1 />
+      <ChildCom2 /> */}
+      {/* 改为使用 MouseMove */}
+      {/* MouseMove 的 render 这个 props 属性对应的值是一个函数
+      该函数表明了我要渲染的视图 */}
+      {/* <MouseMove>
+        {(props) => <ChildCom1 {...props} />}
+      </MouseMove>
+      <MouseMove>
+        {(props) => <ChildCom2 {...props} />}
+      </MouseMove> */}
+
+      {/* 下面是使用高阶组件的方式 */}
+      <NewChildCom1/>
+      <NewChildCom2/>
+    </div>
   )
 }
 
-export default App
+export default App;
