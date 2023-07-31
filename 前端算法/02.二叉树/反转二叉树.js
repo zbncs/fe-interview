@@ -23,8 +23,9 @@ var invertTree = function(root) {
 
 var invertTree1 = function(root) {
 
-  if(root === null) return root; 
+  if(root === null) return root;
 
+  // 递归遍历
   const left = invertTree(root.left);
   const right = invertTree(root.right);
 
