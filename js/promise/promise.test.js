@@ -14,6 +14,7 @@ const pro = new Promise((resolve, reject) => {
   console.log(1);
   setTimeout(() => {
     console.log(2);
+    // 只有reject或者resolve才会向下执行
     resolve();
     console.log(3);
   })
