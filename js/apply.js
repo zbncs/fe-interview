@@ -1,17 +1,30 @@
-// 
+// 将数组的元素单独一个一个出递给函数
 
-Function.prototype.myApply = function(context, argus = []) {
-    const fn = this;
-    context = (context === undefined || context === null) ? window : context
+Function.prototype.myApply = function(context, args) {
 
-    // 绑定 this：apply(this, [])
-    context.fn = fn
+    if (args && !Array.isArray(args)) {
+        throw new Error('0000')
+    }
 
-    const res = context.fn(...argus)
+    context = context || window;
+    
+    context.fn = this;
+    let res;
 
-    delete context.fn
+    if (!args) {
+        res = context.fn()
+    } else {
+        res = context.fn(...args)
+    }
+    
+    delete context.fn;
 
     return res;
 }
 
+function fn1(a, b, c) {
+    console.log(a, b, c);
+    return a;
+}
 
+console.log(fn1.myApply(this, [1, 2, 3]));

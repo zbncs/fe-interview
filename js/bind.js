@@ -1,15 +1,27 @@
 // fn.bind(this, argus)
 
-Function.prototype.myBind1 = function(context, args = []) {
-    const fn = this
-    context = (context === undefined || context === null) ? window : context
+Function.prototype.myBind = function(context, ...argus) {
+    // console.log(this);
+    context = context || window;
+    const fn = this;
+
     return function() {
-        const agrus = args.concat(Array.from(arguments))
-        fn.apply(context, agrus)
+        argus = argus.concat([...arguments])
+        return fn.apply(context, argus)
     }
 }
 
+const obj = {
+    a: 1
+}
 
+var a = 1;
 
+function fn(a) {
+    console.log(100, this);
+    return this.a + a;
+}
 
+const b = fn.myBind(null, 2)
+console.log(b());
 

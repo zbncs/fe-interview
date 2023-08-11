@@ -1,17 +1,21 @@
+Function.prototype.myCall = function(context, ...p) {
+    let res;
+    context = context || window;
+    context.fn = this;
+    res = context.fn(...p);
 
-Function.prototype.myCall = function(context, ...agrs) {
-    const fn = this;
-    context = (context === undefined || context === null) ? window : context
+    delete context.fn;
 
-    context.fn = fn;
-
-    const res = context.fn(...agrs)
-
-    delete context.fn
-
-    return res
+    return res;
 }
 
+const obj = {
+    a: 1
+}
 
+function fn1(a, b, c) {
+    console.log(a, b, c, this.a);
+    return a;
+}
 
-
+console.log(fn1.myCall(obj, 1, 2, 3));
