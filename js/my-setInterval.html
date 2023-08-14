@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .animate-div {
+      width: 60px;
+      height: 60px;
+      background-color: aqua;
+    }
+  </style>
+</head>
+<body>
+  <div class="animate-div"></div>
+  <!-- <script src="./使用 setTimeout 实现 setInterval.js"></script> -->
+  <script>
+    const animateDiv = document.querySelector('.animate-div')
+    let start = null
+
+    // 回调函数
+    function step(timestamp) {
+      console.log(111, timestamp);
+      if (!start) start = timestamp
+      let progress = timestamp - start
+      animateDiv.style.transform = `translateX(${progress}px)`
+      if (progress < 3500) {
+          // 在动画没有结束前，递归渲染
+          window.requestAnimationFrame(step)
+      }
+    }
+
+    // 第一帧渲染
+    window.requestAnimationFrame(step)
+  </script>
+</body>
+</html>
