@@ -1,127 +1,157 @@
-// new Promise((resove, reject) => {  })
+const PENDING = 'pending'
+const FULLFILED = 'fullfiled'
+const REJECTED = 'rejected'
 
 class MyPromise {
-    constructor(fn) {
-        this.state = 'pending'
-        this.value = undefined
-        this.reason = undefined
-
-        // const resolve = value => {
-        //     if (this.state === 'pending') {
-        //         this.state = 'resolved'
-        //         this.value = value
-        //     }
-        // }
-
-        // const reject = reason => {
-        //     if (this.state === 'pending') {
-        //         this.state = 'rejected'
-        //         this.reason = reason
-        //     }
-        // }
+    constructor(callback) {
+        this.status = PENDING
+        this.value = null
 
         try {
-            fn(this.resolve, this.reject)
-        } catch(e) {
-            reject(e)
+            callback(this._resolve.bind(this), this._reject.bind(this))
+        } catch (error) {
+            this._reject(error)
         }
-
-
+        
     }
 
-    resolve = value => {
-        if (this.state === 'pending') {
-            this.state = 'resolved'
-            this.value = value
+    changeStatus(status, val) {
+        if (this.status !== PENDING) {
+            return
         }
+        this.status = status
+        this.value = val
     }
 
-    reject = reason => {
-        if (this.state === 'pending') {
-            this.state = 'rejected'
-            this.reason = reason
-        }
+    _resolve(val) {
+        this.changeStatus(FULLFILED, val)
+    }
+    _reject(reason) {
+        this.changeStatus(REJECTED, reason)
     }
 
-    then(onResolved, onRejected) {
+    then(onFullfiled, onRejected) {
         return new MyPromise((resolve, reject) => {
-            if (this.state === 'resolved') {
-                const ret = onResolved(this.value)
-                resolve(ret)
-            } else if (this.state === 'rejected') {
-                const ret = onRejected(this.reason)
-                reject(ret)
+            if (this.status === FULLFILED) {
+                if (onFullfiled) {
+                    resolve(onFullfiled(this.value))
+                } else {
+                    resolve(this.value)
+                }
+                
+            } else if (this.status === REJECTED) {
+                if (onRejected) {
+                    reject(onRejected(this.value))
+                } else {
+                    reject(this.value)
+                }
             }
         })
     }
 
     catch(onRejected) {
-        this.then(null, onRejected)
+        return this.then(null, onRejected)
     }
 
-    finally(callback) {
-        this.then(
-            value => MyPromise.resolve(callback()).then(() => value),
-            reason => MyPromise.resolve(callback()).then(() => {throw reason})
-        )
+    finally(fn) {
+        fn()
+        return this
     }
 
-    static all(promises) {
-        return new Promise((resolve, reject) => {
-            let count = 0
-            const result = []
-            promises.forEach((item, index) => {
-                Promise.resolve(item).then(res => {
-                    count++;
-                    result[index] = res
-
-                    if (count === promises.length) {
-                        resolve(result)
-                    }
-                }).catch(e => {
-                    reject(e)
-                })
-            })
+    static resolve(val) {
+        return new MyPromise((resolve, reject) => {
+            resolve(val)
         })
     }
 
-    static race(promises) {
-        return new Promise((resolve, reject) => {
-            promises.forEach((item, index) => {
-                Promise.resolve(item).then(res => {
-                    resolve(res)
-                }).catch(e => {
-                    reject(e)
-                })
-            })
+    static reject(reason) {
+        return new MyPromise((resolve, reject) => {
+            reject(reason)
         })
     }
 
-    static allSettled(promises) {
-        return new Promise((resolve, reject) => {
-            let count = 0
-            const result = []
-            promises.forEach((item, index) => {
-                Promise.resolve(item).then(res => {
-                    count++;
-                    result[index] = res
-
-                    if (count === promises.length) {
-                        resolve(result)
-                    }
-                }).catch(e => {
-                    count++;
-                    result[index] = e
-                    if (count === promises.length) {
-                        resolve(result)
-                    }
+    static all(promiseArr) {
+        const ret = []
+        return new MyPromise((resolve, reject) => {
+            for (let i = 0; i < promiseArr.length; i++) {
+                MyPromise.resolve(pro[i]).then(res => {
+                ret[i] = res
+                if (i === promiseArr.length - 1) {
+                    resolve(ret)
+                }
+                }).catch(err => {
+                    return reject(err)
                 })
-            })
+                
+            }
         })
     }
 
+    static race(promiseArr) {
+        return new MyPromise((resolve, reject) => {
+            for (let i = 0; i < promiseArr.length; i++) {
+                MyPromise.resolve(promiseArr[i]).then(res => {
+                    return resolve(res)
+                }).catch(err => {
+                    return reject(err)
+                })
+            }
+        })
+    }
+
+    static any(promiseArr) {
+        const ret = []
+        return new MyPromise((resolve, reject) => {
+            for (let i = 0; i < promiseArr.length; i++) {
+                MyPromise.resolve(promiseArr[i]).then(res => {
+                    return resolve(res)
+                }).catch(err => {
+                    ret[i] = err
+                    if (i === promiseArr.length - 1) {
+                        reject(ret)
+                    }
+                })
+            }
+        })
+    }
+
+    static allSettled(promiseArr) {
+        const ret = []
+        return new MyPromise((resolve, reject) => {
+            for (let i = 0; i < promiseArr.length; i++) {
+                MyPromise.resolve(promiseArr[i]).then(res => {
+                    ret[i] = res
+
+                    if (i === promiseArr.length - 1) {
+                        resolve(ret)
+                    }
+                }).catch(err => {
+                    ret[i] = err
+                    if (i === promiseArr.length - 1) {
+                        resolve(ret)
+                    }
+                })
+            }
+        })
+    }
 
 }
 
+
+const pro = new MyPromise((resolve, reject) => {
+    reject('111111111')
+}).then(res => {
+    console.log(999, res);
+}).catch(err => {
+    console.log(100000, err);
+}).finally(() => {
+    console.log('finally');
+})
+
+MyPromise.resolve(1).then(res => {
+    console.log('static', res);
+})
+
+console.log(123456, pro);
 
 
