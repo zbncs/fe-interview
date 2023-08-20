@@ -1,6 +1,5 @@
 // https://leetcode.cn/problems/permutations/
 
-
 /**
  * @param {number[]} nums
  * @return {number[][]}

@@ -9,32 +9,32 @@ function timeout(time) {
 
 class SuperTask {
     /**
-     * 
      * @param {Number} paralleCount 并发数量
      */
     constructor(paralleCount = 2) {
         this.paralleCount = paralleCount
-        this.tasks = [] // 任务队列
-        this.runnningCount = 0; // 正在执行的任务数量
+        this.runningCount = 0
+        this.taskArr = []
     }
     add(task) {
         return new Promise((resolve, reject) => {
-            this.tasks.push({
-                task,
-                resolve,
-                reject
-            })
-            this.run()
+           this.taskArr.push({
+            task,
+            resolve,
+            reject
+           })
+           this.run()
         })
     }
     run() {
-        while(this.runnningCount < this.paralleCount && this.tasks.length > 0) {
-            const {task, resolve, reject} = this.tasks.shift()
-            this.runnningCount++
+        while (this.paralleCount > this.runningCount && this.taskArr.length > 0) {
+            const {task, resolve, reject} = this.taskArr.shift()
+            this.runningCount++
             task().then(resolve, reject).finally(() => {
-                this.runnningCount--
+                this.runningCount--
                 this.run()
             })
+
         }
     }
 }

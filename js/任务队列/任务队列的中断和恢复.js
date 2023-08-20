@@ -6,40 +6,35 @@
  */
 
 function processTasks(...tasks) {
+    let i = 0
+    const res = []
     let isRunning = false
-    const result = []
-    let i = 0 // 利用闭包记录执行到的位置
     return {
-        start: function() {
-            return new Promise(async (resolve) => {
-                // 当前任务正在执行，不会做任何事情
-                if (isRunning) return;
-                isRunning = true
-                while(i < tasks.length) {
-                    console.log(`任务${i}开始`);
-                    try {
-                        result.push(await tasks[i]())
-                    } catch (error) {
-                        result.push(error)
-                    }
-                    console.log(`任务${i}完成`);
-                    i++
-                    if (!isRunning) {
-                        return
-                    }
+        start() {
+           return new Promise(async resolve => {
+            if (isRunning) {
+                return
+            }
+            isRunning = true
+            while (i < tasks.length) {
+                try {
+                    res.push(await tasks[i]())
+                } catch (error) {
+                    res.push(error)
                 }
-                isRunning = false
-                resolve(result)
-            })
+
+                i++
+                if (!isRunning) {
+                    break
+                }
+                
+            }
+            isRunning = false
+            resolve(res)
+           })
         },
-        pause: function() {
+        pause() {
             isRunning = false
         }
     }
 }
-
-
-
-
-
-

@@ -7,6 +7,7 @@
 var simplifyPath = function(path) {
     const stack = [];
     const pathName = path.split('/');
+    console.log(pathName);
     for(let i = 0; i < pathName.length; i++) {
         if (pathName[i] === '..') {
             stack.pop();
@@ -20,6 +21,6 @@ var simplifyPath = function(path) {
 };
 
 
-console.log(simplifyPath("/../"));
+console.log(simplifyPath("/a/./b/../../c/"));
 
 

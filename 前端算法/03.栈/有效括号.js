@@ -20,6 +20,7 @@ var isValid = function(s) {
 
    for(let i = 0; i < s.length; i++) {
        if(s[i] in obj) {
+        // 先把所有的正向括号放进去
            stack.push(s[i])
        } else {
            const first = stack.pop();
