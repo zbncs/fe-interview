@@ -1,0 +1,42 @@
+import {} from 'react'
+
+function useDebounce(fn, time) {
+    let timer = useRef(null)
+    return function(...arg) {
+        const context = this
+        if (timer.current) {
+            clearTimeout(timer.current)
+        }
+
+        timer.current = setTimeout(() => {
+            fn.apply(context, arg)
+        }, time)
+    }
+}
+
+
+function useThrottle(fn, wait) {
+    let pre = 0;
+    return function(...args) {
+        let now = +new Date()
+
+        if (now - pre > wait) {
+            fn(...args)
+            pre = now
+        }
+    }
+}
+
+
+function useTrottle1(fn, wait) {
+    let timer = useRef(null)
+    return function() {
+        if (!timer.current) {
+           timer.current = setTimeout(() => {
+               fn()
+               timer.current = null
+           }, wait)
+        }
+
+    }
+}

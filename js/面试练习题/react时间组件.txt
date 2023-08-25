@@ -1,0 +1,42 @@
+import {useState, useEffect} from 'react'
+
+function Timer() {
+    const [time, setTime] = React.useState('');
+
+      const formate = (t) => {
+        if (t < 10) return '0' + t;
+
+        return t;
+      };
+
+      const getTime = () => {
+        const date = new Date();
+        const h = formate(date.getHours());
+        const m = formate(date.getMinutes());
+        const s = formate(date.getSeconds());
+
+        return h + ':' + m + ':' + s;
+      };
+
+      React.useEffect(() => {
+        const timer = setTimeout(() => {
+          setTime(getTime());
+        }, 1000);
+
+        return () => {
+          clearTimeout(timer);
+        };
+      }, [time]);
+
+      return (
+        <div>
+          <h1>{time}</h1>
+        </div>
+      );
+
+    return (
+        <div>{time}</div>
+    )
+}
+
+
