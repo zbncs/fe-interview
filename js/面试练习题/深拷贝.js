@@ -38,6 +38,7 @@ obj.other = obj;
 function deepCopy1(obj) {
     if (typeof obj !== 'object') return
 
+    // 是用来存储obj，防止循环引用
     let map = new Map()
 
     function deep(obj, map) {
