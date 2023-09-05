@@ -12,6 +12,16 @@ const obj = {
                 console.log(this)
             }
         }
+    },
+    f1() {
+        console.log(this)
+    },
+    g() {
+        const h = () => {
+            console.log(this)
+        }
+
+        h()
     }
 }
 
@@ -19,6 +29,8 @@ obj.a()
 obj.b.c()
 obj.c()
 obj.d.e.f()
+obj.f1()
+obj.g()
 
 const fn = () => {
     console.log(this)

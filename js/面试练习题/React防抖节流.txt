@@ -1,5 +1,3 @@
-import {} from 'react'
-
 function useDebounce(fn, time) {
     let timer = useRef(null)
     return function(...arg) {

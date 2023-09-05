@@ -1,17 +1,17 @@
 
-// 'use strict'; // 注意严格模式
+'use strict'; // 注意严格模式
 
-// function foo() {
-//   console.log(this);
-// }
+function foo() {
+  console.log(this);
+}
 
-// function callFoo(fn) {
-//   fn();
-// }
+function callFoo(fn) {
+  fn();
+}
 
-// let obj = { foo };
+let obj1 = { foo };
 
-// callFoo(obj.foo);
+callFoo(obj1.foo);
 
 
 var x = 5;
