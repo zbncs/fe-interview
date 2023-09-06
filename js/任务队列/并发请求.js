@@ -4,7 +4,6 @@
  * @param maxNum
  */
 function concurrentRequest(urls, maxNum) {
-
     return new Promise(resolve => {
         let res = []
         let i = 0
