@@ -14,7 +14,7 @@ function throttle(fn, wait) {
             fn.apply(context, arg);
             pre = now;
         }
-       
+
     }
 }
 
@@ -36,4 +36,19 @@ function throttle1(fn, wait) {
     }
 }
 
+// 节流：函数每一段时间内只会执行一次
+function throttle2(fn, wait) {
+    // code here
+
+    let pre = 0
+
+    return function(...args) {
+        let now = +new Date()
+        if (now - pre > wait) {
+            fn.apply(this, args)
+            pre = now
+        }
+    }
+
+}
 

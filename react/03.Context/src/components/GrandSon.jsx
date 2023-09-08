@@ -1,4 +1,4 @@
-import {Context} from '../context/index'
+import {Context} from '../context/index.jsx'
 
 export default function GrandSon() {
 
@@ -15,7 +15,7 @@ export default function GrandSon() {
                             </div>
                         )
                     }
-                }        
+                }
             </Context.Consumer>
         </div>
     )

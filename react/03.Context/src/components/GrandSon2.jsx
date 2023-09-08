@@ -1,5 +1,5 @@
 import {useContext} from 'react'
-import { Context } from '../context'
+import { Context } from '../context/index.jsx'
 
 export default function GrandSon2() {
     const {count, setCount} = useContext(Context)
