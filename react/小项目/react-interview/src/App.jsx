@@ -1,35 +1,61 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import {useEffect, useState} from 'react'
 import './App.css'
+import {useTimeout} from './hooks/useTimeout.js'
+import {useIsFirstRender} from "./hooks/useIsFirstRender.js";
+import SWR from "./components/SWR.jsx";
+import PreValueCom from "./components/PreValueCom.jsx";
+import HoverCom from "./components/HoverCom.jsx";
+import ToggleCom from "./components/ToggleCom.jsx";
+import DebounceCom from "./components/DebounceCom.jsx";
+import EffectOnce from "./components/EffectOnce.jsx";
+import PhoneNumberInput from "./components/PhoneNumberInput.jsx";
+import TelephoneInput from "./components/TelephoneInput.jsx";
+import FocusCom from "./components/FocusCom.jsx";
+import UseArrayCom from "./components/UseArrayCom.jsx";
+import UseClickOutside from "./components/UseClickOutside.jsx";
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [count, setCount] = useState(0)
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    // const timer = useTimeout(() => {
+    //     setCount(count+1)
+    // }, 3000)
+    //
+    // console.log(111, timer)
+    const handleClick = () => {
+        setCount(count+1)
+    }
+
+    // 123
+    // const isFirst = useIsFirstRender()
+    // console.log(111, isFirst)
+
+    return (
+        <>
+            <h1>Vite + React</h1>
+            {/*<SWR />*/}
+            {/*<div className="card">*/}
+            {/*    <button onClick={handleClick}>*/}
+            {/*        count is {count}*/}
+            {/*    </button>*/}
+            {/*</div>*/}
+            {/*<PreValueCom counter={count} />*/}
+            {/*<HoverCom />*/}
+            {/*<ToggleCom />*/}
+            {/*<p>---------------------</p>*/}
+            {/*<DebounceCom />*/}
+            {/*<EffectOnce />*/}
+            {/*<hr/>*/}
+            {/*<PhoneNumberInput />*/}
+            {/*<hr/>*/}
+            {/*<TelephoneInput />*/}
+            {/*<hr/>*/}
+            {/*<FocusCom />*/}
+            {/*<hr/>*/}
+            {/*<UseArrayCom />*/}
+            <UseClickOutside />
+        </>
+    )
 }
 
 export default App
