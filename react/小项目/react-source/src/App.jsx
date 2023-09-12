@@ -62,7 +62,7 @@ function App() {
             {/*<UseEffectCom3 />*/}
             {/*<UseEffectCom4 />*/}
             {/*<UseEffectCom5 />*/}
-            <UseEffectCom6 />
+            {/*<UseEffectCom6 />*/}
             {/*<EffectsKind />*/}
             {/*<UseRefCom />*/}
             {/*<UseRefCom2 />*/}
