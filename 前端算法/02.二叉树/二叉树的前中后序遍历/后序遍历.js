@@ -14,6 +14,13 @@ const r = new TreeNode(5, null, temp[6])
 const h = new TreeNode(1, l, r)
 
 
+/**
+ *          1
+ *      2       5
+ *    3   4       6
+ */
+
+
 function LaterLoop(h, list = []) {
     if (h) {
         LaterLoop(h.left, list)

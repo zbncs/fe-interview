@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&family=Inconsolata:wght@300;400;500;600;700&display=swap");
+
+html,
+body {
+  width: 410px;
+  height: fit-content;
+}
+
+body {
+  margin: 0;
+  position: relative;
+  font-family: "Bai Jamjuree", sans-serif;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

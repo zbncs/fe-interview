@@ -20,6 +20,7 @@ function D() {
     console.log('D')
     return null
 }
+
 export default function ReRender1() {
     const [state, setState] = useState(0);
 
