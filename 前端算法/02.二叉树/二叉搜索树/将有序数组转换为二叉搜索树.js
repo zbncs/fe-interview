@@ -5,5 +5,5 @@
  * @return {TreeNode}
  */
 const sortedArrayToBST = function(nums) {
-    
+
 };
