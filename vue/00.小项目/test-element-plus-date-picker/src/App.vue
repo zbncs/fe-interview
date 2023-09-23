@@ -12,8 +12,8 @@ const msg = ref('Hello World!')
   <el-input v-model="msg" />
   无法显示日期
   <component is="el-date-picker">
-<!--    <template v-if="false">-->
-<!--      sdsd-->
+<!--    <template>-->
+<!--      12345-->
 <!--    </template>-->
   </component>
   <p>
