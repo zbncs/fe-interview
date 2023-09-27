@@ -4,7 +4,7 @@
  * @param {number[]} nums
  * @return {number[][]}
  */
-var permute = function(nums) {
+const permute = function(nums) {
   const res = [];
   const temp = [];
 
@@ -16,9 +16,12 @@ var permute = function(nums) {
 
       for (let i = 0; i < nums.length; i++) {
           if (temp.indexOf(nums[i]) > -1) continue;
-          
+
+          // 先放进去
           temp.push(nums[i]);
+          // 在执行一遍
           fn(temp, nums);
+          // 再拿出来
           temp.pop();
       }
   }

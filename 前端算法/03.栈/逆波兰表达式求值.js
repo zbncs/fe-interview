@@ -4,40 +4,6 @@
  * @param {string[]} tokens
  * @return {number}
  */
-const evalRPN1 = function(tokens) {
-    let i = 0
-
-    function getSymbol(l, s, r) {
-        if (s === '-' && r < 0) {
-            return `${l}+${Math.abs(r)}`
-        } else if (s === '+' && r < 0) {
-            return `${l}${r}`
-        } else if (l < 0 && (s === '*' || s === '/') && r < 0) {
-            return `${Math.abs(l)}${s}${Math.abs(r)}`
-        } else if (l > 0 && (s === '*' || s === '/') && r < 0) {
-            return `-${Math.abs(l)}${s}${Math.abs(r)}`
-        }
-
-        return `${l}${s}${r}`
-    }
-
-    while (i < tokens.length) {
-       if (isNaN(parseInt(tokens[i]))) {
-           const res = eval(getSymbol(parseInt(tokens[i-2]), tokens[i], parseInt(tokens[i-1])))
-           tokens.splice(i-2, 3, parseInt(res))
-           i -= 2
-       } else {
-           i++
-       }
-    }
-
-    return tokens[0]
-};
-
-/**
- * @param {string[]} tokens
- * @return {number}
- */
 const evalRPN = function(tokens) {
     const obj = {
         '+': (a, b) => a + b,

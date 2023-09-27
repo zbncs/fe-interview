@@ -18,7 +18,7 @@
 
 // Object.__proto__ === Function.prototype
 
-// 
+// Object.__proto__.constructor === Function
 
 
 var F = function() {};
@@ -32,11 +32,11 @@ Function.prototype.b = function() {
 /**
  * f：实例对象
  * F：构造函数
- * 
- * 
+ *
+ *
  * F：实例对象
  * Function: 构造函数
- * 
+ *
  */
 
 var f = new F();
