@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        #canvas {
+            background: antiquewhite;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        const canvas = document.getElementById('canvas')
+        canvas.width = window.innerWidth
+        canvas.height = window.innerHeight
+
+        // 三维画笔，webgl
+        const gl = canvas.getContext('webgl')
+        // 声明绘制的颜色
+        gl.clearColor(0, 0, 1, 1)
+        // 刷底色
+        gl.clear(gl.COLOR_BUFFER_BIT)
+
+
+        // 解析css rgba
+        const rgbaCss = 'rgba(255, 0, 0, 1)'
+        const reg = RegExp(/\((.*)\)/)
+        const rgbaStr = reg.exec(rgbaCss)[1]
+        const rgba = rgbaStr.split(',').map(it => parseInt(it))
+        const r = rgba[0] / 255
+        const g = rgba[1] / 255
+        const b = rgba[2] / 255
+        const a = rgba[3]
+        gl.clearColor(r, g, b, a)
+        gl.clear(gl.COLOR_BUFFER_BIT)
+    </script>
+</body>
+</html>

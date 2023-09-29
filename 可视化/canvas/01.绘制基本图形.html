@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <canvas id="canvas" height="800" width="800"></canvas>
+    <script>
+        const canvas = document.getElementById('canvas')
+        const ctx = canvas.getContext('2d')
+        ctx.fillStyle = 'skyblue'
+        ctx.fillRect(0, 0, 60, 60) // 绘制矩形
+
+        // 绘制线段
+        ctx.beginPath()
+        ctx.lineWidth = 1
+        ctx.strokeStyle = '#000'
+        ctx.moveTo(100, 100)
+        ctx.lineTo(120, 150)
+        ctx.stroke();
+
+        ctx.beginPath()
+        ctx.lineWidth = 2
+        ctx.strokeStyle = 'red'
+        ctx.moveTo(120, 150)
+        ctx.lineTo(300, 300)
+        ctx.stroke() // 绘制线段
+
+        // 绘制圆形
+        ctx.beginPath()
+        ctx.lineWidth = 2 // 设置线的宽度
+        ctx.strokeStyle = 'yellow' // 设置线的颜色
+        ctx.fillStyle = 'blue' // 设置要填充的颜色
+        ctx.arc(500, 500, 100, 0, 2*Math.PI) // (x, y, r, 开始角度，结束的角度)
+        ctx.stroke()
+        ctx.fill() // 填充颜色
+
+        // 线段
+        ctx.beginPath()
+        ctx.lineWidth = 1
+        ctx.strokeStyle = 'red'
+        ctx.moveTo(700, 700)
+        ctx.lineTo(701, 701)
+        ctx.stroke()
+    </script>
+</body>
+</html>
