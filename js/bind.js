@@ -25,3 +25,16 @@ function fn(a) {
 const b = fn.myBind(null, 2)
 console.log(b());
 
+Function.prototype.myBind1 = function (thisArg) {
+    thisArg = thisArg || window
+    thisArg.fn = this
+    let args = Array.from(arguments).slice(1)
+
+    return function () {
+        args = args.concat([...arguments])
+        return thisArg.fn(...args)
+    }
+}
+
+
+

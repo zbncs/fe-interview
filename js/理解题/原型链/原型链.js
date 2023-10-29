@@ -47,3 +47,5 @@ F.b()
 
 console.log(F.__proto__ === Function.prototype);
 
+console.log(123, Function.prototype === Object.__proto__)
+console.log(123, Function.prototype.__proto__.constructor === Object)

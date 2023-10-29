@@ -1,3 +1,5 @@
+// https://leetcode.cn/problems/lru-cache/description/
+
 // 请你设计并实现一个满足  LRU (最近最少使用) 缓存 约束的数据结构。
 // 实现 LRUCache 类：
 // LRUCache(int capacity) 以 正整数 作为容量 capacity 初始化 LRU 缓存
@@ -21,6 +23,7 @@ var LRUCache = function(capacity) {
 /**
  * @param {number} key
  * @return {number}
+ * get 也算使用了
  */
 LRUCache.prototype.get = function(key) {
     if (this.cache.has(key)) {
